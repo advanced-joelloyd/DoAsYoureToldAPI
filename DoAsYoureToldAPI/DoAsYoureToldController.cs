@@ -1,4 +1,6 @@
-﻿using System.Web.Http;
+﻿using System.Net;
+using System.Net.Http;
+using System.Web.Http;
 
 namespace DoAsYoureToldAPI
 {
@@ -14,9 +16,13 @@ namespace DoAsYoureToldAPI
 
 		[HttpGet]
 		[Route("")]
-		public string Get()
+		public HttpResponseMessage Get()
 		{
-			return _store.GetRandom();
+			return new HttpResponseMessage
+			{
+				StatusCode = HttpStatusCode.OK,
+				Content = new StringContent(_store.GetRandom())
+			};
 		}
     }
 }
